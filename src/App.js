@@ -4,9 +4,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import AuthService from "./services/auth.service";
+import userService from "./services/user.service";
 import NavBar from "./layout/Navbar";
-import AddUser from "./pages/users/AddUser";
+// import AddUser from "./pages/users/AddUser";
 import GestionPersonnel from "./pages/GestionPersonnel";
+// import UpdateEmployee from "./pages/users/EditUser";
+import UpdateUser from "./pages/users/Update";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
@@ -205,6 +208,11 @@ class App extends Component {
               <Route path="/user" element={<BoardUser />} />
               <Route path="/mod" element={<BoardModerator />} />
               <Route path="/admin" element={<BoardAdmin />} />
+              <Route path="/editUser/:id" element={<UpdateUser />} />
+              {/* <Route
+                path="/editEmployee/:employeeId"
+                element={<UpdateEmployee />}
+              /> */}
             </Routes>
           </div>
         </div>

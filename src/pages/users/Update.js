@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-// import UserService from "../services/user.service";
+import React from "react";
 import userService from "../../services/user.service";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 
-function UpdateEmployee() {
+export default function Update() {
+  let navigate = useNavigate();
   const { id } = useParams();
-  const navigate = useNavigate();
 
-  console.log("UpdateEmployee with id: " + id);
   const [employee, setEmployee] = useState({
     name: "",
     lastName: "",
@@ -17,42 +17,23 @@ function UpdateEmployee() {
     // Ajoutez d'autres champs pour les informations de l'employé
   });
 
-  const loadEmployee = async (id) => {
-    try {
-      if (!id) {
-        // Gérez le cas où l'ID est undefined
-        console.log("Error: Invalid employee id: ");
-        return;
-      }
-
-      const response = await axios.get(
-        `http://localhost:8080/api/test/employe/find/${id}`
-      );
-
-      // Mettez à jour l'état avec les données de l'employé
-      setEmployee(response.data);
-    } catch (error) {
-      console.error("Erreur lors du chargement de l'employé :", error);
-    }
-  };
-
-  // const loadUsers = async (id) => {
-  //   const result = await axios.get(
-  //     `http://localhost:8080/api/test/employe/find/${id}`
-  //   );
-  // };
-
-  useEffect(() => {
-    // Récupérez les informations de l'employé à partir de votre service ou API
-    loadEmployee();
-  }, [id]);
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setEmployee({
       ...employee,
       [name]: value,
     });
+  };
+
+  useEffect(() => {
+    loadEmployees();
+  }, [id]);
+
+  const loadEmployees = async () => {
+    const result = await axios.get(
+      `http://localhost:8080/api/test/employe/find/${id}`
+    );
+    setEmployee(result.data);
   };
 
   const handleUpdateEmployee = (event) => {
@@ -80,7 +61,6 @@ function UpdateEmployee() {
         console.error("Erreur lors de la mise à jour de l'employé :", error);
       });
   };
-
   return (
     <div>
       <h2>Modifier l'employé</h2>
@@ -118,5 +98,3 @@ function UpdateEmployee() {
     </div>
   );
 }
-
-export default UpdateEmployee;

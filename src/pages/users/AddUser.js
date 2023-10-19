@@ -6,11 +6,8 @@ export default function AddUser() {
   const [user, setUsers] = useState({
     name: "",
     lastName: "",
-    telephoneNumber: 0,
-    departement: {
-      id: 2, // Utilisez directement l'ID du département
-      // Autres propriétés du département si nécessaire
-    },
+    telephoneNumber: "",
+    department: "",
   });
 
   const { name, lastName, telephoneNumber, departement } = user;
